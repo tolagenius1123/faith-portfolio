@@ -43,7 +43,7 @@ export function Hero() {
           </Badge>
         </FadeIn>
         <FadeIn intro delay={0.1} className="text-eyebrow text-muted-foreground">
-          Marketing · Brand communications · Customer experience
+          {hero.focus}
         </FadeIn>
       </div>
 
@@ -70,7 +70,7 @@ export function Hero() {
           <ParallaxImage
             intro
             priority
-            src="/images/faith-portrait.jpg"
+            src="/images/faith-headshot.jpg"
             alt="Portrait of Okpe Faith Oloh"
             sizes="(min-width: 768px) 26vw, 72vw"
             className="aspect-[4/5] rounded-t-full"
@@ -85,7 +85,7 @@ export function Hero() {
         </RevealText>
 
         <FadeIn intro stagger delay={0.6} className="flex flex-col gap-1 text-sm">
-          <p className="text-eyebrow mb-2 text-muted-foreground">Open to roles as</p>
+          <p className="text-eyebrow mb-2 text-muted-foreground">Open to roles in</p>
           {hero.openTo.map((role) => (
             <p key={role}>{role}</p>
           ))}
