@@ -21,9 +21,9 @@ const instrumentSans = Instrument_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "Okpe Faith Oloh | Brand Communications and Customer Experience",
+  title: "Okpe Faith Oloh | Market Research and Brand Strategy",
   description:
-    "Okpe Faith Oloh helps brands communicate with clarity and treat every customer as a relationship worth keeping. Marketing, brand communications and customer experience, based in Lagos.",
+    "Okpe Faith Oloh is a market research and brand strategy professional based in Lagos, working across consumer research, audience insight and strategic communications in real estate and fashion.",
 }
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

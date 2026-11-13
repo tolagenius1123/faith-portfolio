@@ -1,6 +1,7 @@
 "use client"
 
 import Lenis from "lenis"
+import { usePathname } from "next/navigation"
 import {
   createContext,
   useCallback,
@@ -25,6 +26,7 @@ const SiteContext = createContext<SiteContextValue | null>(null)
 export function SiteProvider({ children }: { children: ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null)
   const [introDone, setIntroDone] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     history.scrollRestoration = "manual"
@@ -46,6 +48,24 @@ export function SiteProvider({ children }: { children: ReactNode }) {
       lenisRef.current = null
     }
   }, [])
+
+  useEffect(() => {
+    // Client-side navigation keeps this provider mounted, so the new page needs fresh trigger
+    // positions and an explicit jump to its hash (or the top) once its pinned sections exist.
+    const frame = requestAnimationFrame(() => {
+      ScrollTrigger.refresh()
+      const target = window.location.hash || 0
+      if (lenisRef.current) {
+        lenisRef.current.resize()
+        lenisRef.current.scrollTo(target, { immediate: true, force: true })
+      } else if (typeof target === "number") {
+        window.scrollTo(0, 0)
+      } else {
+        document.querySelector(target)?.scrollIntoView()
+      }
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [pathname])
 
   const completeIntro = useCallback(() => {
     setIntroDone(true)

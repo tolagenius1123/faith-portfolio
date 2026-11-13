@@ -1,6 +1,8 @@
 "use client"
 
 import type { MouseEvent, ReactNode } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { cn } from "cn"
 
 import { useSite } from "@/components/providers/site-provider"
@@ -18,13 +20,16 @@ const rollEase = "transition-transform duration-500 ease-[cubic-bezier(0.7,0,0.2
 
 export function RollLink({ href, children, icon, className, onNavigate }: RollLinkProps) {
   const { scrollTo } = useSite()
+  const pathname = usePathname()
   const isSection = href.startsWith("#")
   const isExternal = href.startsWith("http")
+  const isInternal = isSection || href.startsWith("/")
+  const isRemoteSection = isSection && pathname !== "/"
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    if (!isSection) return
-    event.preventDefault()
     onNavigate?.()
+    if (!isSection || isRemoteSection) return
+    event.preventDefault()
     scrollTo(href)
   }
 
@@ -33,12 +38,16 @@ export function RollLink({ href, children, icon, className, onNavigate }: RollLi
       variant="link"
       nativeButton={false}
       render={
-        <a
-          href={href}
-          onClick={handleClick}
-          target={isExternal ? "_blank" : undefined}
-          rel={isExternal ? "noreferrer" : undefined}
-        />
+        isInternal ? (
+          <Link href={isRemoteSection ? `/${href}` : href} onClick={handleClick} />
+        ) : (
+          <a
+            href={href}
+            onClick={handleClick}
+            target={isExternal ? "_blank" : undefined}
+            rel={isExternal ? "noreferrer" : undefined}
+          />
+        )
       }
       className={cn(
         "group/roll h-auto gap-0 rounded-none p-0 text-[length:inherit] font-[inherit] text-current hover:no-underline",

@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { useRef } from "react"
 import { ArrowRightIcon, ArrowUpRightIcon } from "lucide-react"
 import { cn } from "cn"
@@ -19,9 +20,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       data-project
       className="flex w-full shrink-0 flex-col gap-8 lg:h-[72vh] lg:w-[68vw] lg:flex-row lg:items-center lg:gap-12"
     >
-      <div
-        data-cursor={project.client}
-        className={cn("relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] lg:aspect-auto lg:h-full lg:w-[55%]", project.surface)}
+      <Link
+        href={`/work/${project.slug}`}
+        aria-label={`Read the ${project.title.replace(/\.$/, "")} case study`}
+        data-cursor="Read case"
+        className={cn("relative block aspect-[4/5] w-full overflow-hidden rounded-[2rem] lg:aspect-auto lg:h-full lg:w-[55%]", project.surface)}
       >
         <Image
           data-project-image
@@ -31,7 +34,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           sizes="(min-width: 1024px) 38vw, 100vw"
           className={cn("scale-[1.15]", project.imageFit === "contain" ? "object-contain p-10" : "object-cover")}
         />
-      </div>
+      </Link>
 
       <div className="flex flex-col gap-6 lg:w-[45%]">
         <span className="font-display text-7xl text-blush/60 italic">{String(index + 1).padStart(2, "0")}</span>
@@ -41,6 +44,14 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         <h3 className="font-display text-[clamp(2.25rem,3.6vw,3.75rem)]">{project.title}</h3>
         <p className="max-w-md leading-relaxed text-paper/75">{project.description}</p>
         <div className="flex flex-wrap items-center gap-4">
+          <Button
+            nativeButton={false}
+            render={<Link href={`/work/${project.slug}`} />}
+            className="h-8 rounded-full bg-paper px-4 text-sm text-oxblood hover:bg-paper/85"
+          >
+            Read case study
+            <ArrowRightIcon />
+          </Button>
           <Badge variant="secondary" className="h-8 px-4 text-sm">
             {project.role}
           </Badge>
@@ -118,7 +129,7 @@ export function Work() {
         className="flex flex-col gap-24 px-5 py-28 md:px-10 lg:h-svh lg:w-max lg:flex-row lg:items-center lg:gap-[8vw] lg:py-0 lg:pr-[10vw]"
       >
         <div className="flex shrink-0 flex-col justify-center gap-10 lg:w-[38vw]">
-          <SectionHeader label="Selected work" title="Campaigns, clients and coordination." />
+          <SectionHeader label="Selected work" title="Research, insight and positioning." />
           <p className="hidden items-center gap-3 text-sm opacity-70 lg:flex">
             Keep scrolling <ArrowRightIcon className="size-4" />
           </p>

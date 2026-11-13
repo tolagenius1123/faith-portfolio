@@ -64,7 +64,7 @@ export function Preloader() {
       </p>
 
       <div className="flex items-end justify-between">
-        <span className="text-eyebrow max-w-48 opacity-70">Brand communications and customer experience</span>
+        <span className="text-eyebrow max-w-48 opacity-70">Market research and brand strategy</span>
         <span className="overflow-hidden">
           <span ref={counterRef} className="font-display block text-[clamp(4rem,12vw,12rem)] tabular-nums">
             000

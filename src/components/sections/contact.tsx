@@ -67,8 +67,8 @@ export function Contact() {
         </div>
 
         <p className="mt-12 max-w-lg text-lg leading-relaxed text-paper/75">
-          I welcome conversations about roles, projects and collaborations where thoughtful communication and
-          dependable execution matter.
+          I welcome conversations about roles and projects in market research, consumer insights and brand
+          strategy.
         </p>
 
         <ul className="mt-20 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
